@@ -1,7 +1,7 @@
 #ifndef SNAKE_PLAYER_HPP
 #define SNAKE_PLAYER_HPP
 
-// #include "Board.hpp"
+#include "Board.hpp"
 
 struct Piece {
 	int x, y;
@@ -14,7 +14,7 @@ struct Piece {
 };
 
 class Player {
-	// Board board;
+	Board board;
 	Piece *head, *tail, *tmp;
 
 	void deleteTail();

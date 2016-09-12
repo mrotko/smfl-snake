@@ -11,7 +11,7 @@ class Board {
 public:
 	Board();
 	int getValue(int x, int y);
-	void setValue(int x, int y, int value);
+	void fillField(int x, int y);
 	void clearField(int x, int y);
 	bool collision(int x, int y);
 };

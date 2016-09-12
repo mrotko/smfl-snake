@@ -13,10 +13,10 @@ int Board::getValue(int x, int y) {
 	return board[y][x];
 }
 
-void Board::setValue(int x, int y, int value) {
+void Board::fillField(int x, int y) {
 	if(collision(x, y))
 		isCollision = true;
-	board[y][x] = value;
+	board[y][x] = 1;
 }
 
 void Board::clearField(int x, int y) {

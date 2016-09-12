@@ -1,7 +1,7 @@
 #include "Player.hpp"
-#include <iostream>
+
 void Player::deleteTail() {
-	// board.clearField(tail->x, tail->y);
+	board.clearField(tail->x, tail->y);
 	tail = tail->next;
 }
 
@@ -11,9 +11,9 @@ Piece * Player::createPiece(int x, int y) {
 }
 
 Player::Player() {
-	// tmp = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, nullptr);
-	// head = tmp;
-	// tail = tmp;
+	tmp = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, nullptr);
+	head = tmp;
+	tail = tmp;
 }
 
 Player::Player(int x, int y) {
@@ -24,12 +24,11 @@ Player::Player(int x, int y) {
 
 void Player::move(int x, int y) {
 	head = createPiece(x, y);
-	// board.fillField(x, y);
+	board.fillField(x, y);
 	deleteTail();
 }
 
 void Player::add(int x, int y) {
 	head = createPiece(x, y);
-	std::cout << "jestem" << std::endl;
-	// board.fillField(x, y);
+	board.fillField(x, y);
 }
