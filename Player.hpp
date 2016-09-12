@@ -17,13 +17,14 @@ class Player {
 	Board board;
 	Piece *head, *tail, *tmp;
 
-	void deleteTail();
 	Piece * createPiece(int x, int y);
 public:
+	void deleteTail();
 	Player();
 	Player(int x, int y);
 	void move(int x, int y);	
 	void add(int x, int y);
+	Board & getBoard();
 };
 
 

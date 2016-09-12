@@ -2,18 +2,19 @@
 
 void Player::deleteTail() {
 	board.clearField(tail->x, tail->y);
+	Piece *x = tail;
 	tail = tail->next;
+	delete x;
 }
 
 Piece * Player::createPiece(int x, int y) {
-	tmp = new Piece(x, y, head);
+	tmp = new Piece(x, y, nullptr);
 	return tmp;
 }
 
 Player::Player() {
-	tmp = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, nullptr);
-	head = tmp;
-	tail = tmp;
+	head = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, nullptr);
+	tail = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, head);
 }
 
 Player::Player(int x, int y) {
@@ -23,12 +24,18 @@ Player::Player(int x, int y) {
 }
 
 void Player::move(int x, int y) {
-	head = createPiece(x, y);
+	head->next = createPiece(x, y);
+	head = head->next;
 	board.fillField(x, y);
 	deleteTail();
 }
 
 void Player::add(int x, int y) {
-	head = createPiece(x, y);
+	head->next = createPiece(x, y);
+	head = head->next;
 	board.fillField(x, y);
+}
+
+Board & Player::getBoard() {
+	return board;
 }

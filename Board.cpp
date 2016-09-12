@@ -28,3 +28,7 @@ bool Board::collision(int x, int y) {
 		return true;
 	return false;
 }
+
+bool Board::getIsCollision() {
+	return isCollision;
+}

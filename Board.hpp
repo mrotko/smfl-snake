@@ -14,6 +14,7 @@ public:
 	void fillField(int x, int y);
 	void clearField(int x, int y);
 	bool collision(int x, int y);
+	bool getIsCollision();
 };
 
 
