@@ -7,7 +7,6 @@
 class Board {
 	int board[BOARD_HEIGHT][BOARD_WIDTH];
 	bool isCollision;
-
 public:
 	Board();
 	int getValue(int x, int y);

@@ -7,33 +7,42 @@ void Player::deleteTail() {
 	delete x;
 }
 
-Piece * Player::createPiece(int x, int y) {
-	tmp = new Piece(x, y, nullptr);
+Piece * Player::createPiece() {
+	tmp = new Piece(headPositionX, headPositionY, nullptr);
 	return tmp;
 }
 
 Player::Player() {
-	head = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, nullptr);
-	tail = new Piece(BOARD_WIDTH/2, BOARD_HEIGHT/2, head);
-}
+	headPositionX = BOARD_WIDTH/2;
+	headPositionY = BOARD_HEIGHT/2;
+	head = new Piece(headPositionX, headPositionY, nullptr);
+	tail = new Piece(headPositionX - 1, headPositionY, head);
+	board.fillField(headPositionX, headPositionY);
+	board.fillField(headPositionX - 1, headPositionY);
 
-Player::Player(int x, int y) {
-	tmp = new Piece(x, y, nullptr);
-	head = tmp;
-	tail = tmp;
 }
 
 void Player::move(int x, int y) {
-	head->next = createPiece(x, y);
+	updatePosition(x, y);
+	head->next = createPiece();
 	head = head->next;
-	board.fillField(x, y);
+	board.fillField(headPositionX, headPositionY);
 	deleteTail();
 }
 
 void Player::add(int x, int y) {
-	head->next = createPiece(x, y);
+	updatePosition(x, y);
+	head->next = createPiece();
 	head = head->next;
-	board.fillField(x, y);
+	board.fillField(headPositionX, headPositionY);
+}
+
+void Player::updatePosition(int x, int y) {
+	headPositionX += x;
+	headPositionY += y;
+
+	headPositionX = (headPositionX + BOARD_WIDTH) % BOARD_WIDTH;
+	headPositionY = (headPositionY + BOARD_HEIGHT) % BOARD_HEIGHT;
 }
 
 Board & Player::getBoard() {
