@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 
-#define HOLD_TIME 400
+#define HOLD_TIME 100
 
 class Game {
 	Player player;

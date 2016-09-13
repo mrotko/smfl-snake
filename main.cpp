@@ -1,11 +1,17 @@
 #include "IO.hpp"
 #include "Game.hpp"
+#include <iostream>
+using namespace std;
+
 
 
 int main() {
 	Game game;
 	IO io(game);
-	sf::Vector2i move(1, 0);
+
+	sf::Time time;
+	sf::Clock clock;
+	sf::Vector2i move(1, 0), tmp(1, 0), lastMove(1, 0), moveNull(0, 0);
 	while(io.window.isOpen()) {
 		sf::Event event;
 
@@ -19,14 +25,21 @@ int main() {
 			}
 		}
 
-
 		io.window.clear();
-		sf::Vector2i last = move;
+		
+		tmp = move;
 		move = io.movement();
-		if(move == sf::Vector2i(0, 0) || move + last == sf::Vector2i(0, 0))
-			move = last;
+		if(move == moveNull || move + tmp == moveNull || move + lastMove == moveNull)
+			move = tmp;
 
-		game.move(move.x, move.y);
+
+		time = clock.getElapsedTime();
+		if(time.asMilliseconds() > HOLD_TIME) {
+			game.move(move.x, move.y);
+			lastMove = move;
+			clock.restart();
+		}
+
 		io.showBoard();
 		io.window.display();
 	}

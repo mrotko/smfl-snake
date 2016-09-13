@@ -24,12 +24,15 @@ Player::Player() {
 
 void Player::move(int x, int y) {
 	updatePosition(x, y);
-	bool food = (board.getValue(headPositionX, headPositionY) == 2);
+	bool food = (board.getValue(headPositionX, headPositionY) == Field::FOOD);
 	head->next = createPiece();
 	head = head->next;
 	board.fillField(headPositionX, headPositionY);
-	if(!food)
+	if(food)
+		board.setFood();
+	else 
 		deleteTail();
+
 }
 
 void Player::updatePosition(int x, int y) {

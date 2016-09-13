@@ -9,6 +9,7 @@ void Game::start() {
 	points = 0;
 	loadBestResults();
 	gameIsActive = true;
+	player.getBoard().setFood();
 }
 
 void Game::pause() {

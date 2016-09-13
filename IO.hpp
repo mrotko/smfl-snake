@@ -25,7 +25,7 @@ public:
 	void showPause();
 	void showStats();
 	bool loadGraphics();
-	bool loadFont();	
+	bool loadFont();
 };
 
 

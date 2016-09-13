@@ -7,6 +7,8 @@
 #define BOARD_WIDTH 20
 #define BOARD_HEIGHT 20
 
+enum Field {CLEAR, SNAKE, FOOD, ROCK};
+
 class Board {
 	int board[BOARD_HEIGHT][BOARD_WIDTH];
 	bool isCollision;
