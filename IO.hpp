@@ -20,7 +20,7 @@ public:
 	sf::RenderWindow window;
 	IO(Game &game);
 	void showBoard();
-	void movement();
+	sf::Vector2i movement();
 	void showEnd();
 	void showPause();
 	void showStats();

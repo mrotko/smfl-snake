@@ -26,6 +26,8 @@ public:
 	void saveBestResults();
 	void updateBestResults();
 	int getBoardValue(int x, int y);
+	void setFood();
+	void move(int x, int y);
 };
 
 

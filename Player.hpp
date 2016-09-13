@@ -23,7 +23,6 @@ public:
 	void deleteTail();
 	Player();
 	void move(int x, int y);	
-	void add(int x, int y);
 	void updatePosition(int x, int y);
 	Board & getBoard();
 };

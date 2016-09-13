@@ -1,6 +1,9 @@
 #ifndef SNAKE_BOARD_HPP
 #define SNAKE_BOARD_HPP
 
+#include <cstdlib>
+#include <ctime>
+
 #define BOARD_WIDTH 20
 #define BOARD_HEIGHT 20
 
@@ -14,6 +17,7 @@ public:
 	void clearField(int x, int y);
 	bool collision(int x, int y);
 	bool getIsCollision();
+	void setFood();
 };
 
 

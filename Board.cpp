@@ -1,12 +1,12 @@
 #include "Board.hpp"
 
 Board::Board() {
-
 	for(int i = 0; i < BOARD_HEIGHT; i++)
 		for(int j = 0; j < BOARD_WIDTH; j++)
 			board[i][j] = 0;
 
 	isCollision = false;
+	srand(time(0));
 }
 
 int Board::getValue(int x, int y) {
@@ -31,4 +31,14 @@ bool Board::collision(int x, int y) {
 
 bool Board::getIsCollision() {
 	return isCollision;
+}
+
+void Board::setFood() {
+	int x, y;
+	do {
+		x = rand() % BOARD_WIDTH;
+		y = rand() % BOARD_HEIGHT;
+	} while(board[y][x] != 0);
+
+	board[y][x] = 2;
 }

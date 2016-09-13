@@ -22,6 +22,18 @@ void IO::showBoard() {
 	}
 }
 
+sf::Vector2i IO::movement() {
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		return sf::Vector2i(-1, 0);
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		return sf::Vector2i(1, 0);
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		return sf::Vector2i(0, -1);
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		return sf::Vector2i(0, 1);
+	else return sf::Vector2i(0, 0);
+}
+
 bool IO::loadGraphics() {
 
 	if(texture.loadFromFile("blocks.png") != true)

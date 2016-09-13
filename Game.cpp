@@ -2,7 +2,6 @@
 
 Game::Game() {
 	playerName = "";
-	
 	start();
 }
 
@@ -52,4 +51,12 @@ void Game::updateBestResults() {
 
 int Game::getBoardValue(int x, int y) {
 	return player.getBoard().getValue(x, y);
+}
+
+void Game::setFood() {
+	player.getBoard().setFood();
+}
+
+void Game::move(int x, int y) {
+	player.move(x, y);
 }
