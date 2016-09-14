@@ -24,7 +24,7 @@ void Board::clearField(int x, int y) {
 }
 
 bool Board::collision(int x, int y) {
-	if(board[y][x] > Field::CLEAR)
+	if(board[y][x] > Field::CLEAR && board[y][x] != Field::FOOD)
 		return true;
 	return false;
 }

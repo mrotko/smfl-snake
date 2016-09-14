@@ -9,8 +9,6 @@ int main() {
 	Game game;
 	IO io(game);
 
-	sf::Time time;
-	sf::Clock clock;
 	sf::Vector2i move(1, 0), tmp(1, 0), lastMove(1, 0), moveNull(0, 0);
 	while(io.window.isOpen()) {
 		sf::Event event;
@@ -19,6 +17,20 @@ int main() {
 			switch(event.type) {
 				case sf::Event::Closed :
 					io.window.close();
+					break;
+				case sf::Event::LostFocus:
+					game.pause();
+					break;
+				case sf::Event::GainedFocus:
+					game.resume();
+					break;
+				case sf::Event::KeyPressed:
+					if(event.key.code == sf::Keyboard::P) {
+						if(game.isPause)
+							game.resume();
+						else
+							game.pause();
+					}
 					break;
 				default:
 					break;
@@ -33,18 +45,18 @@ int main() {
 			move = tmp;
 
 
-		time = clock.getElapsedTime();
-		if(time.asMilliseconds() > HOLD_TIME) {
+		io.manageTime();
+		if(io.time.asMilliseconds() > HOLD_TIME) {
 			game.move(move.x, move.y);
 			lastMove = move;
-			clock.restart();
+			if(game.collision())
+				game.end();
+			io.time = sf::milliseconds(0);
 		}
 
 		io.showBoard();
 		io.window.display();
 	}
-
-
 }
 
 // g++ main.cpp -lsfml-graphics -lsfml-window -lsfml-system

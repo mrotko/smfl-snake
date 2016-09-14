@@ -18,6 +18,8 @@ class IO {
 	sf::RectangleShape shape[SHAPES];	// 0-empty, 1-snake, 2-food, 3-rock
 public:
 	sf::RenderWindow window;
+	sf::Time time;
+	sf::Clock clock;
 	IO(Game &game);
 	void showBoard();
 	sf::Vector2i movement();
@@ -26,8 +28,8 @@ public:
 	void showStats();
 	bool loadGraphics();
 	bool loadFont();
+	void manageTime();
 };
-
 
 
 #endif // SNAKE_IO_HPP

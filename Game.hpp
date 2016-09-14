@@ -11,9 +11,12 @@ class Game {
 	Player player;
 	std::string playerName;
 	std::string file = "bestResults.txt";
-	bool gameIsActive;
-	int points;
+	
 public:
+	bool isPause;
+	bool isEnd;
+	int points;
+
 	Game();
 	void start();
 	void pause();
@@ -28,6 +31,7 @@ public:
 	int getBoardValue(int x, int y);
 	void setFood();
 	void move(int x, int y);
+	bool collision();
 };
 
 

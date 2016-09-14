@@ -8,22 +8,23 @@ Game::Game() {
 void Game::start() {
 	points = 0;
 	loadBestResults();
-	gameIsActive = true;
+	isEnd = false;
+	isPause = false;
 	player.getBoard().setFood();
 }
 
 void Game::pause() {
-	gameIsActive = false;
+	isPause = true;
 }
 
 void Game::resume() {
-	gameIsActive = true;
+	isPause = false;
 }
 
 void Game::end() {
 	updateBestResults();
 	saveBestResults();
-	gameIsActive = false;
+	isEnd = true;
 }
 
 void Game::setPlayerName(std::string name) {
@@ -60,4 +61,8 @@ void Game::setFood() {
 
 void Game::move(int x, int y) {
 	player.move(x, y);
+}
+
+bool Game::collision() {
+	return player.getBoard().getIsCollision();
 }

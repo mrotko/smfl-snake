@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <iostream>
 
 void Player::deleteTail() {
 	board.clearField(tail->x, tail->y);
@@ -25,14 +26,16 @@ Player::Player() {
 void Player::move(int x, int y) {
 	updatePosition(x, y);
 	bool food = (board.getValue(headPositionX, headPositionY) == Field::FOOD);
-	head->next = createPiece();
-	head = head->next;
-	board.fillField(headPositionX, headPositionY);
 	if(food)
 		board.setFood();
 	else 
 		deleteTail();
 
+	head->next = createPiece();
+	head = head->next;
+	board.fillField(headPositionX, headPositionY);
+
+	board.getIsCollision();
 }
 
 void Player::updatePosition(int x, int y) {

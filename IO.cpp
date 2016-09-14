@@ -7,6 +7,7 @@ IO::IO(Game &game) {
 	window.setFramerateLimit(60);
 	loadGraphics();
 	loadFont();
+	time = sf::milliseconds(0);
 }
 
 
@@ -50,4 +51,11 @@ bool IO::loadGraphics() {
 bool IO::loadFont() {
 	
 	return font.loadFromFile("consola.ttf");
+}
+
+void IO::manageTime() {
+	if(!game->isPause && !game->isEnd)
+		time += clock.restart();
+	else
+		time = sf::milliseconds(HOLD_TIME - 1);
 }
