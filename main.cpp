@@ -55,6 +55,11 @@ int main() {
 		}
 
 		io.showBoard();
+
+
+		if(game.isEnd) io.showEnd();
+		else if(game.isPause) io.showPause();
+
 		io.window.display();
 	}
 }

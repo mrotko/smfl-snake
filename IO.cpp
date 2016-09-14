@@ -35,6 +35,17 @@ sf::Vector2i IO::movement() {
 	else return sf::Vector2i(0, 0);
 }
 
+void IO::showEnd() {
+	sf::Text message("GAME IS OVER!", font, 30);
+
+}
+
+void IO::showPause() {
+	sf::Text message("PAUSE", font, 30);
+	message.setPosition(BOARD_WIDTH*BLOCK_WIDTH/2-2*BLOCK_WIDTH, BOARD_HEIGHT*BLOCK_HEIGHT/2);
+	window.draw(message);
+}
+
 bool IO::loadGraphics() {
 
 	if(texture.loadFromFile("blocks.png") != true)
