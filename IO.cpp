@@ -1,6 +1,4 @@
 #include "IO.hpp"
-#include <iostream>
-
 
 IO::IO(Game &game) {
 	this->game = &game;
@@ -48,9 +46,8 @@ void IO::showEnd() {
 		std::string name = getName();
 		if(name == "") name = "#";
 		game->loadBestResults();
-		// game->updateBestResults(/* nazwa, punkty */);
+		game->updateBestResults(name, *(game->points));
 		game->saveBestResults();
-		std::cout << name << std::endl;
 	}
 
 	window.draw(message);

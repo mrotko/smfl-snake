@@ -1,5 +1,4 @@
 #include "Game.hpp"
-#include <iostream>
 
 Game::Game() {
 	start();
@@ -11,7 +10,6 @@ void Game::start() {
 	*points = 0;
 	isEnd = false;
 	isPause = false;
-	player.getBoard().setFood();
 }
 
 void Game::pause() {
@@ -23,8 +21,6 @@ void Game::resume() {
 }
 
 void Game::end() {
-	updateBestResults();
-	saveBestResults();
 	isEnd = true;
 }
 
@@ -34,48 +30,69 @@ Player & Game::getPlayer() {
 
 bool Game::loadBestResults() {
 	std::ifstream load(file);
-
+	bool tmp = load.good();
 	if(load.good()) {
 		std::vector <std::string> record;
 		std::string line, s1, s2, s3;
-
+		results.clear();
 		while(getline(load, line)) {
 			//	nick p date
 			s1 = line.substr(0, line.find(' '));
 			s2 = line.substr(s1.length()+1, line.rfind(' ') - s1.length()-1);
 			s3 = line.substr(line.rfind(' ')+1);
 
-			std::cout << s1 << " " << s2 << " " << s3 << std::endl;
-
 			if(s1 != "" && s2 != "" && s3 != "")
 				results.push_back({s1, s2, s3});
 		}
 
-	} else return false;
-	return true;
+	}
+	load.close();
+	return tmp;
 }
 
 bool Game::saveBestResults() {
 	std::ofstream save(file, std::ios::trunc);
-
+	bool tmp = save.good();
 	if(save.good()) {
 		for(int i = 0; i < results.size(); i++) {
 			save << results[i][0] << " " << results[i][1] << " " << results[i][2] << "\n";
 		}
-	} else return false;
-	return true;
+	}
+	save.close();
+	return tmp;
 }
 
-bool Game::updateBestResults() {
+void Game::updateBestResults(std::string name, int p) {
+	std::ostringstream ss;
+	std::vector <std::string> record;
+	auto t = std::time(nullptr);
+	auto tm = *std::localtime(&t);
+
+	record.push_back(name);
+
+	ss << p;
+	record.push_back(ss.str());
+	ss.str("");
+
+	ss << std::put_time(&tm, "%d-%m-%y");
+	record.push_back(ss.str());
+	results.push_back(record);
+
+	std::vector <std::vector <std::string>>::iterator it = results.begin();
+
+	for(int i = 0; i < results.size(); i++) {
+		if(atoi(record[1].c_str()) >= atoi(results[i][1].c_str())) {
+			results.insert(it+i, record);
+			break;
+		}
+	}
+	
+	results.pop_back();
 
 }
 
 int Game::getBoardValue(int x, int y) {
 	return player.getBoard().getValue(x, y);
-}
-
-void Game::setFood() {
-	player.getBoard().setFood();
 }
 
 void Game::move(int x, int y) {

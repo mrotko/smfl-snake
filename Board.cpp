@@ -6,6 +6,7 @@ Board::Board() {
 			board[i][j] = Field::CLEAR;
 
 	isCollision = false;
+	setFood();
 	srand(time(0));
 }
 

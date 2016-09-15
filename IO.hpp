@@ -21,8 +21,8 @@ public:
 	sf::Time time;
 	sf::Clock clock;
 	IO(Game &game);
-	void showBoard();
 	sf::Vector2i movement();
+	void showBoard();
 	void showEnd();
 	void showPause();
 	void showStats();
