@@ -20,14 +20,16 @@ Player::Player() {
 	tail = new Piece(headPositionX - 1, headPositionY, head);
 	board.fillField(headPositionX, headPositionY);
 	board.fillField(headPositionX - 1, headPositionY);
-
+	points = 0;
 }
 
 void Player::move(int x, int y) {
 	updatePosition(x, y);
 	bool food = (board.getValue(headPositionX, headPositionY) == Field::FOOD);
-	if(food)
+	if(food) {
 		board.setFood();
+		points++;
+	}
 	else 
 		deleteTail();
 
@@ -48,4 +50,8 @@ void Player::updatePosition(int x, int y) {
 
 Board & Player::getBoard() {
 	return board;
+}
+
+int &Player::getPoints() {
+	return points;
 }

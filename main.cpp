@@ -3,8 +3,6 @@
 #include <iostream>
 using namespace std;
 
-
-
 int main() {
 	Game game;
 	IO io(game);
@@ -14,6 +12,7 @@ int main() {
 		sf::Event event;
 
 		while(io.window.pollEvent(event)) {
+
 			switch(event.type) {
 				case sf::Event::Closed :
 					io.window.close();
@@ -55,8 +54,7 @@ int main() {
 		}
 
 		io.showBoard();
-
-
+		io.showStats();
 		if(game.isEnd) io.showEnd();
 		else if(game.isPause) io.showPause();
 

@@ -3,6 +3,8 @@
 
 IO::IO(Game &game) {
 	this->game = &game;
+	WINDOW_HEIGHT = BOARD_HEIGHT * BLOCK_HEIGHT;
+	WINDOW_WIDTH = BOARD_WIDTH * BLOCK_WIDTH + 150;
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "SNAKE");
 	window.setFramerateLimit(60);
 	loadGraphics();
@@ -38,12 +40,25 @@ sf::Vector2i IO::movement() {
 void IO::showEnd() {
 	sf::Text message("GAME IS OVER!", font, 30);
 
+
+	window.draw(message);
 }
 
 void IO::showPause() {
 	sf::Text message("PAUSE", font, 30);
 	message.setPosition(BOARD_WIDTH*BLOCK_WIDTH/2-2*BLOCK_WIDTH, BOARD_HEIGHT*BLOCK_HEIGHT/2);
 	window.draw(message);
+}
+
+void IO::showStats() {
+	std::ostringstream ss;
+
+	ss << *(game->points);
+
+	sf::Text stats("Points\n" + ss.str(), font);
+
+	stats.setPosition(BOARD_WIDTH*BLOCK_WIDTH + BLOCK_WIDTH, BOARD_HEIGHT*BLOCK_HEIGHT/2);
+	window.draw(stats);
 }
 
 bool IO::loadGraphics() {

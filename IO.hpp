@@ -3,9 +3,8 @@
 
 #include "Game.hpp"
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 800
 #define BLOCK_WIDTH 20
 #define BLOCK_HEIGHT 20
 #define SHAPES 4
@@ -16,6 +15,7 @@ class IO {
 	sf::Texture texture;
 	sf::Font font;
 	sf::RectangleShape shape[SHAPES];	// 0-empty, 1-snake, 2-food, 3-rock
+	int WINDOW_WIDTH, WINDOW_HEIGHT;
 public:
 	sf::RenderWindow window;
 	sf::Time time;
@@ -30,6 +30,5 @@ public:
 	bool loadFont();
 	void manageTime();
 };
-
 
 #endif // SNAKE_IO_HPP

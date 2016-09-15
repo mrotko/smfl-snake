@@ -1,12 +1,11 @@
 #include "Game.hpp"
 
 Game::Game() {
-	playerName = "";
 	start();
 }
 
 void Game::start() {
-	points = 0;
+	points = &getPlayer().getPoints();
 	loadBestResults();
 	isEnd = false;
 	isPause = false;
@@ -25,14 +24,6 @@ void Game::end() {
 	updateBestResults();
 	saveBestResults();
 	isEnd = true;
-}
-
-void Game::setPlayerName(std::string name) {
-	playerName = name;
-}
-	
-std::string Game::getPlayerName() {
-	return playerName;
 }
 
 Player & Game::getPlayer() {
