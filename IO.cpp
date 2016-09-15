@@ -38,10 +38,17 @@ sf::Vector2i IO::movement() {
 }
 
 void IO::showEnd() {
-	sf::Text message("GAME IS OVER!", font, 30);
+	std::string s1 = "GAME IS OVER!", s2 = "New game [N]", s3 = "Save game [S]";
+	sf::Text message(s1 + "\n\n" + s2 + "\n\n" + s3, font, 30);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
 		game->start();
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		//	pobierz nazwe
+		game->loadBestResults();
+		// game->updateBestResults(/* nazwa, punkty */);
+		game->saveBestResults();
+	}
 
 	window.draw(message);
 }

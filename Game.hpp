@@ -4,12 +4,14 @@
 #include "Player.hpp"
 #include <string>
 #include <fstream>
+#include <vector>
 
 #define HOLD_TIME 100
 
 class Game {
 	Player player;
 	std::string file = "bestResults.txt";
+	std::vector <std::vector <std::string>> results;
 	
 public:
 	bool isPause;
@@ -22,9 +24,9 @@ public:
 	void resume();
 	void end();
 	Player & getPlayer();
-	void loadBestResults();
-	void saveBestResults();
-	void updateBestResults();
+	bool loadBestResults();
+	bool saveBestResults();
+	bool updateBestResults();
 	int getBoardValue(int x, int y);
 	void setFood();
 	void move(int x, int y);

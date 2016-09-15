@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include <iostream>
 
 Game::Game() {
 	start();
@@ -31,18 +32,41 @@ Player & Game::getPlayer() {
 	return player;
 }
 
-void Game::loadBestResults() {
-	//	pobierz nazwe
+bool Game::loadBestResults() {
+	std::ifstream load(file);
 
+	if(load.good()) {
+		std::vector <std::string> record;
+		std::string line, s1, s2, s3;
 
+		while(getline(load, line)) {
+			//	nick p date
+			s1 = line.substr(0, line.find(' '));
+			s2 = line.substr(s1.length()+1, line.rfind(' ') - s1.length()-1);
+			s3 = line.substr(line.rfind(' ')+1);
 
+			std::cout << s1 << " " << s2 << " " << s3 << std::endl;
+
+			if(s1 != "" && s2 != "" && s3 != "")
+				results.push_back({s1, s2, s3});
+		}
+
+	} else return false;
+	return true;
 }
 
-void Game::saveBestResults() {
+bool Game::saveBestResults() {
+	std::ofstream save(file, std::ios::trunc);
 
+	if(save.good()) {
+		for(int i = 0; i < results.size(); i++) {
+			save << results[i][0] << " " << results[i][1] << " " << results[i][2] << "\n";
+		}
+	} else return false;
+	return true;
 }
 
-void Game::updateBestResults() {
+bool Game::updateBestResults() {
 
 }
 
