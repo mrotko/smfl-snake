@@ -1,4 +1,5 @@
 #include "IO.hpp"
+#include <iostream>
 
 
 IO::IO(Game &game) {
@@ -38,16 +39,18 @@ sf::Vector2i IO::movement() {
 }
 
 void IO::showEnd() {
-	std::string s1 = "GAME IS OVER!", s2 = "New game [N]", s3 = "Save game [S]";
+	std::string s1 = "GAME IS OVER!", s2 = "New game [N]", s3 = "Save result [S]";
 	sf::Text message(s1 + "\n\n" + s2 + "\n\n" + s3, font, 30);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
 		game->start();
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		//	pobierz nazwe
+		std::string name = getName();
+		if(name == "") name = "#";
 		game->loadBestResults();
 		// game->updateBestResults(/* nazwa, punkty */);
 		game->saveBestResults();
+		std::cout << name << std::endl;
 	}
 
 	window.draw(message);
@@ -93,4 +96,34 @@ void IO::manageTime() {
 		time += clock.restart();
 	else
 		time = sf::milliseconds(HOLD_TIME - 1);
+}
+
+std::string IO::getName() {
+	std::string name, display = "Save as: ";
+	sf::Text message(display, font, 20);
+	sf::RenderWindow window(sf::VideoMode(300, 200, 32), "Save");
+	window.setFramerateLimit(30);
+	while(window.isOpen()) {
+		sf::Event event;
+		window.clear();
+		while(window.pollEvent(event)) {
+			switch(event.type) {
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::TextEntered:
+					if(event.text.unicode == 13) window.close();
+					if(event.text.unicode == 32) break;
+					if(event.text.unicode == 8)
+                        name = name.substr(0, name.length() - 1);
+                    else if(event.text.unicode > 32)
+                    	name += (char) event.text.unicode;
+					break;
+			}
+		}
+		message.setString(display + name);	
+		window.draw(message);
+		window.display();
+	}
+	return name;
 }

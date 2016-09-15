@@ -29,6 +29,7 @@ public:
 	bool loadGraphics();
 	bool loadFont();
 	void manageTime();
+	std::string getName();
 };
 
 #endif // SNAKE_IO_HPP
