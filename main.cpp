@@ -12,7 +12,6 @@ int main() {
 		sf::Event event;
 
 		while(io.window.pollEvent(event)) {
-
 			switch(event.type) {
 				case sf::Event::Closed :
 					io.window.close();

@@ -5,8 +5,9 @@ Game::Game() {
 }
 
 void Game::start() {
+	player = Player();
 	points = &getPlayer().getPoints();
-	loadBestResults();
+	*points = 0;
 	isEnd = false;
 	isPause = false;
 	player.getBoard().setFood();
@@ -31,6 +32,9 @@ Player & Game::getPlayer() {
 }
 
 void Game::loadBestResults() {
+	//	pobierz nazwe
+
+
 
 }
 

@@ -40,6 +40,8 @@ sf::Vector2i IO::movement() {
 void IO::showEnd() {
 	sf::Text message("GAME IS OVER!", font, 30);
 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+		game->start();
 
 	window.draw(message);
 }
