@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <iomanip>
 
 #define BLOCK_WIDTH 20
 #define BLOCK_HEIGHT 20
@@ -26,6 +27,7 @@ public:
 	void showEnd();
 	void showPause();
 	void showStats();
+	void showRanking();
 	bool loadGraphics();
 	bool loadFont();
 	void manageTime();

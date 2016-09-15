@@ -32,6 +32,7 @@ public:
 	void move(int x, int y);
 	bool collision();
 	void setName(std::string name);
+	std::vector <std::vector <std::string>> getResults();
 };
 
 

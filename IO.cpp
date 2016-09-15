@@ -37,19 +37,21 @@ sf::Vector2i IO::movement() {
 }
 
 void IO::showEnd() {
-	std::string s1 = "GAME IS OVER!", s2 = "New game [N]", s3 = "Save result [S]";
-	sf::Text message(s1 + "\n\n" + s2 + "\n\n" + s3, font, 30);
+	std::string s1 = "GAME IS OVER!", s2 = "New game [N]", s3 = "Save result [S]", s4 = "Ranking [R]", s5 = "Exit [E]";
+	sf::Text message(s1 + "\n\n" + s2 + "\n\n" + s3 + "\n\n" + s4 + "\n\n" + s5, font, 30);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
 		game->start();
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		std::string name = getName();
 		if(name == "") name = "#";
-		game->loadBestResults();
 		game->updateBestResults(name, *(game->points));
 		game->saveBestResults();
 	}
-
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		showRanking();
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		window.close();
 	window.draw(message);
 }
 
@@ -66,8 +68,46 @@ void IO::showStats() {
 
 	sf::Text stats("Points\n" + ss.str(), font);
 
-	stats.setPosition(BOARD_WIDTH*BLOCK_WIDTH + BLOCK_WIDTH, BOARD_HEIGHT*BLOCK_HEIGHT/2);
+	stats.setPosition(BOARD_WIDTH*BLOCK_WIDTH + BLOCK_WIDTH, BOARD_HEIGHT*BLOCK_HEIGHT/3);
 	window.draw(stats);
+}
+
+void IO::showRanking() {
+	sf::RenderWindow window(sf::VideoMode(400, 400, 32), "Ranking");
+	window.setFramerateLimit(30);
+
+	std::ostringstream ss;
+	sf::Text rank("", font, 15);
+
+	int tmp = game->getResults().size(), l = 1;
+
+	while(tmp /= 10) l++;
+
+	std::left(ss);
+
+	for(int i = 0; i < game->getResults().size() && i < 20; i++) {
+		ss << std::setw(l) << i+1 << " "
+		<< std::setw(20) << game->getResults()[i][0] 
+		<< std::setw(5) << game->getResults()[i][1] 
+		<< std::setw(12) << game->getResults()[i][2] << "\n";
+	}
+
+	while(window.isOpen()) {
+		sf::Event event;
+
+		while(window.pollEvent(event)) {
+			switch(event.type) {
+				case sf::Event::Closed:
+					window.close();
+					break;
+			}
+		}
+
+		rank.setString(ss.str());
+		window.clear();
+		window.draw(rank);
+		window.display();
+	}
 }
 
 bool IO::loadGraphics() {

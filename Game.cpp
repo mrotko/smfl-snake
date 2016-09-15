@@ -22,6 +22,7 @@ void Game::resume() {
 
 void Game::end() {
 	isEnd = true;
+	loadBestResults();
 }
 
 Player & Game::getPlayer() {
@@ -88,7 +89,6 @@ void Game::updateBestResults(std::string name, int p) {
 	}
 	
 	results.pop_back();
-
 }
 
 int Game::getBoardValue(int x, int y) {
@@ -101,4 +101,8 @@ void Game::move(int x, int y) {
 
 bool Game::collision() {
 	return player.getBoard().getIsCollision();
+}
+
+std::vector <std::vector <std::string>> Game::getResults() {
+	return results;
 }

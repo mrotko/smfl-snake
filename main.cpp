@@ -40,7 +40,6 @@ int main() {
 		if(move == moveNull || move + tmp == moveNull || move + lastMove == moveNull)
 			move = tmp;
 
-
 		io.manageTime();
 		if(io.time.asMilliseconds() > HOLD_TIME) {
 			game.move(move.x, move.y);
