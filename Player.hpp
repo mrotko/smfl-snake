@@ -20,8 +20,8 @@ class Player {
 	Piece * createPiece();
 	int points;
 public:
-	void deleteTail();
 	Player();
+	void deleteTail();
 	void move(int x, int y);	
 	void updatePosition(int x, int y);
 	Board & getBoard();

@@ -1,16 +1,15 @@
 #include "Player.hpp"
-#include <iostream>
+
+Piece * Player::createPiece() {
+	tmp = new Piece(headPositionX, headPositionY, nullptr);
+	return tmp;
+}
 
 void Player::deleteTail() {
 	board.clearField(tail->x, tail->y);
 	Piece *x = tail;
 	tail = tail->next;
 	delete x;
-}
-
-Piece * Player::createPiece() {
-	tmp = new Piece(headPositionX, headPositionY, nullptr);
-	return tmp;
 }
 
 Player::Player() {
